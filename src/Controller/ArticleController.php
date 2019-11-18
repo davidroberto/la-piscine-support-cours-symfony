@@ -41,10 +41,17 @@ class ArticleController extends AbstractController
         //    $_FILES,
         //    $_SERVER
 
-
         $response = new Response($request->query->get('id'));
 
         return $response;
 
+    }
+
+    /**
+     * @Route("/product/{id}", name="product")
+     */
+    public function ProductShow($id)
+    {
+        var_dump($id); die;
     }
 }
