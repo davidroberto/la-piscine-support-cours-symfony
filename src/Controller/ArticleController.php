@@ -54,4 +54,20 @@ class ArticleController extends AbstractController
     {
         var_dump($id); die;
     }
+
+    /**
+     * @Route("/admin", name="admin_connexion")
+     */
+    public function Connexion()
+    {
+        // génère une url pour la route dont le nom est "article"
+        //$url = $this->generateUrl('article');
+
+        // effectue une redirection vers la doc de Symfony
+        //return $this->redirect($url);
+
+        // cumule les deux méthodes 'generateUrl' et 'redirect'
+        return $this->redirectToRoute('article');
+    }
+
 }
