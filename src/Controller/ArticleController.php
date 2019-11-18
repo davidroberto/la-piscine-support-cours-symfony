@@ -4,19 +4,26 @@ namespace App\Controller; // namespace de la classe actuelle
 
 // namespace de la classe Response du composant HTPP foundation
 // namespace de la classe Route utilisée en annotation
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ArticleController
+// On étend la classe AbstractController pour bénéficier des méthodes et propriétés
+// de cette classe dans notre contrôleur
+class ArticleController extends AbstractController
 {
     /**
      * Commentaire qui est une annotation et qui permet de créer
      * une url "/article" qui appelle la méthode "ArticleShow"
      *
+     * Je passe en parametre de la méthode une variable $request, précédée par le nom
+     * de la classe que je veux utiliser, et symfony va créer automatiquement l'instance de la
+     * classe dans ma variable
+     *
      * @Route("/article", name="article")
      */
-    public function ArticleShow()
+    public function ArticleShow(Request $request)
     {
         // Réponse non valide (le var dump n'est pas une réponse HTTP correcte)
         //var_dump('hello world');
@@ -34,14 +41,8 @@ class ArticleController
         //    $_FILES,
         //    $_SERVER
 
-        $request = Request::createFromGlobals();
 
-        // récupération d'un parametre d'url id
-        dump($request->query->get('id'));
-
-        die;
-
-        $response = new Response();
+        $response = new Response($request->query->get('id'));
 
         return $response;
 
