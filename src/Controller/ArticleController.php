@@ -23,7 +23,7 @@ class ArticleController extends AbstractController
      *
      * @Route("/article", name="article")
      */
-    public function ArticleShow(Request $request)
+    public function articleShow(Request $request)
     {
         // Réponse non valide (le var dump n'est pas une réponse HTTP correcte)
         //var_dump('hello world');
@@ -50,7 +50,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/product/{id}", name="product")
      */
-    public function ProductShow($id)
+    public function productShow($id)
     {
         var_dump($id); die;
     }
@@ -58,7 +58,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/admin", name="admin_connexion")
      */
-    public function Connexion()
+    public function connexion()
     {
         // génère une url pour la route dont le nom est "article"
         //$url = $this->generateUrl('article');
@@ -70,4 +70,24 @@ class ArticleController extends AbstractController
         return $this->redirectToRoute('article');
     }
 
+
+    /**
+     * @Route("/twig_article", name="twig_article")
+     */
+    public function twigArticle()
+    {
+        // récupère et compile le contenu d'un fichier Twig
+        // en html, et le renvoie en réponse
+
+        // on simule des données récupérées depuis la bdd
+        $title = 'titre de ma page';
+        $content = 'contenu de ma page';
+
+        // utilisation de la méthode render pour appeler un fichier Twig et le compiler en html
+        // en lui envoyant des variables
+        return $this->render('article.html.twig', [
+            'title' => $title,
+            'content' => $content
+        ]);
+    }
 }
