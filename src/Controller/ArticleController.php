@@ -4,6 +4,9 @@ namespace App\Controller; // namespace de la classe actuelle
 
 // namespace de la classe Response du composant HTPP foundation
 // namespace de la classe Route utilisée en annotation
+use App\Entity\Article;
+use App\Repository\ArticleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,7 +24,7 @@ class ArticleController extends AbstractController
      * de la classe que je veux utiliser, et symfony va créer automatiquement l'instance de la
      * classe dans ma variable
      *
-     * @Route("/article", name="article")
+     * @Route("/articleStatic", name="article_static")
      */
     public function articleShow(Request $request)
     {
@@ -72,7 +75,7 @@ class ArticleController extends AbstractController
 
 
     /**
-     * @Route("/twig_article", name="twig_article")
+     * @Route("/article", name="article")
      */
     public function twigArticle()
     {
@@ -83,11 +86,39 @@ class ArticleController extends AbstractController
         $title = 'titre de ma page';
         $content = 'contenu de ma page';
 
+        $displaySidebar = false;
+
+        $relatedArticles = [
+            '<p>article associé 1</p>',
+            '<p>aarticle associé 2</p>',
+            '<p>aarticle associé 3</p>',
+            '<p>aarticle associé 4</p>'
+        ];
+
         // utilisation de la méthode render pour appeler un fichier Twig et le compiler en html
         // en lui envoyant des variables
         return $this->render('article.html.twig', [
             'title' => $title,
-            'content' => $content
+            'content' => $content,
+            'displaySidebar' => $displaySidebar,
+            'relatedArticles' => $relatedArticles
         ]);
     }
+
+    /**
+     * @Route("/", name="article_list")
+     */
+    public function ArticleList()
+    {
+        return $this->render('articleList.html.twig');
+    }
+
+    /**
+     * @Route("/article_db_list", name="article_db_list")
+     */
+    public function ArticlesDbList(ArticleRepository $articleRepository)
+    {
+        $articles = $articleRepository->findAll();
+    }
+
 }

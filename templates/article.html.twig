@@ -1,20 +1,27 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
 
-    <main>
-        {# affichage de la variable title #}
-        <h1>{{ title }}</h1>
-        {# affichage de la variable content #}
-        <p>{{ content }}</p>
-    </main>
+{% block content %}
 
-</body>
-</html>
+    {# affichage de la variable title #}
+    <h1>{{ title | upper }}</h1>
+    {# affichage de la variable content #}
+    <p>{{ content }}</p>
+
+    {# fait une condition sur la variable displaySidebar et affiche du contenu uniquement si elle est true #}
+    {% if displaySidebar %}
+        <aside>
+            Contenu de ma barre latérale
+        </aside>
+    {% endif %}
+
+    {# boucle sur la variable relatedArticles qui contient un tableau #}
+    {% for article in relatedArticles %}
+
+        {# affiche chaque article du tableau d'article #}
+        {# créer un lien vers la route 'article' #}
+        <a href="{{ path('article', {'id': 5}) }}">
+            {{ article | raw }}
+        </a>
+    {% endfor %}
+
+{% endblock %}
