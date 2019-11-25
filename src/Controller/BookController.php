@@ -15,11 +15,13 @@ class BookController extends AbstractController
 	 */
 	public function getBooksByGenre(BookRepository $bookRepository)
 	{
-
-        $bookRepository->getByGenre();
-
         // appelle la méthode qu'on a créée dans le bookRepository ("getByGenre()")
         // Cette méthode est censée nous retourner tous les livres en fonction d'un genre
         // Elle va donc executer une requete SELECT en base de données
+        $books = $bookRepository->getByGenre();
+
+        dump($books); die;
+
+
 	}
 }
