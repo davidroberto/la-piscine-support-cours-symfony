@@ -4,14 +4,16 @@ declare( strict_types=1 );
 
 namespace App\Controller;
 
+use App\Entity\Book;
 use App\Repository\BookRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
 class BookController extends AbstractController
 {
 	/**
-	 * @Route("/books_by_genre", name="books_by_genre")
+	 * @Route("/book/search", name="book_search")
 	 */
 	public function getBooksByGenre(BookRepository $bookRepository)
 	{
@@ -21,7 +23,46 @@ class BookController extends AbstractController
         $books = $bookRepository->getByGenre();
 
         dump($books); die;
-
-
 	}
+
+
+    /**
+     * @Route("/book/insert", name="book_insert")
+     */
+	public function insertBook(EntityManagerInterface $entityManager)
+    {
+        // insérer dans la table book un nouveau livre
+        $book = new Book();
+        $book->setTitle('titre depuis le contr');
+        $book->setAuthor('David Robert');
+        $book->setGenre('escroquerie');
+        $book->setInStock(true);
+        $book->setNbPages(223);
+        $book->setDate(new \DateTime());
+
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        var_dump('livre enrgistré'); die;
+    }
+
+    // pouvoir supprimer un book en bdd
+
+    /**
+     * @Route("/book/delete", name="book_delete")
+     */
+    public function deleteBook(BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    {
+        // Je récupère un enregistrement book en BDD grâce au repository de book
+        $book = $bookRepository->find(2);
+
+        // j'utilise l'entity manager avec la méthode remove pour enregistrer
+        // la suppression du book dans l'unité de travail
+        $entityManager->remove($book);
+        // je valide la suppression en bdd avec la méthode flush
+        $entityManager->flush();
+
+    }
+
+
 }
