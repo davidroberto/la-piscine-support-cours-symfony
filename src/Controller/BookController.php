@@ -5,6 +5,7 @@ declare( strict_types=1 );
 namespace App\Controller;
 
 use App\Entity\Book;
+use App\Form\BookType;
 use App\Repository\BookRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -85,5 +86,35 @@ class BookController extends AbstractController
         dump('livre modifié'); die;
     }
 
+
+    /**
+     * @Route("/book/insert_form", name="book_insert_form")
+     */
+    public function insertBookForm()
+    {
+
+        // J'utilise le gabarit de formulaire pour créer mon formulaire
+        // j'envoie mon formulaire à un fichier twig
+        // et je l'affiche
+
+        // je crée un nouveau Book,
+        // en créant une nouvelle instance de l'entité Book
+        $book = new Book();
+
+        // J'utilise la méthode createForm pour créer le gabarit / le constructeur de
+        // formulaire pour le Book : BookType (que j'ai généré en ligne de commandes)
+        // Et je lui associe mon entité Book vide
+        $bookForm = $this->createForm(BookType::class, $book);
+
+        // à partir de mon gabarit, je crée la vue de mon formulaire
+        $bookFormView = $bookForm->createView();
+
+        // je retourne un fichier twig, et je lui envoie ma variable qui contient
+        // mon formulaire
+        return $this->render('book/insert_form.html.twig', [
+            'bookFormView' => $bookFormView
+        ]);
+
+    }
 
 }
