@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Book;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,10 +15,17 @@ class BookType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('genre')
+            ->add('genre', ChoiceType::class, [
+                'choices' => [
+                    'Thriller' => 'thriller',
+                    'Policier' => 'policier',
+                    'Autobio' => 'autobio'
+                ]
+            ])
             ->add('author')
             ->add('inStock')
             ->add('nbPages')
+            ->add('Envoyer', SubmitType::class)
         ;
     }
 
