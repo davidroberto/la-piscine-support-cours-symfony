@@ -65,4 +65,25 @@ class BookController extends AbstractController
     }
 
 
+    /**
+     * @Route("/book/update", name="book_update")
+     */
+    public function updateBook(BookRepository $bookRepository, EntityManagerInterface $entityManager)
+    {
+        // j'utilise le Repository de l'entité Book pour récupérer un livre
+        // en fonction de son id
+        $book = $bookRepository->find(4);
+
+        // Je donne un nouveau titre à mon entité Book
+        $book->setTitle('Les 11 clés du succès');
+        $book->setGenre('Magie');
+
+        // je re-enregistre mon livre en BDD avec l'entité manager
+        $entityManager->persist($book);
+        $entityManager->flush();
+
+        dump('livre modifié'); die;
+    }
+
+
 }
