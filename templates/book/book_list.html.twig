@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    {% for book in books %}
+
+        <article class="book">
+
+            <h3 class="book_title">{{ book.title }}</h3>
+
+            {% if book.author is not null %}
+
+                <p class="book_author">{{ book.author.firstName }}</p>
+
+            {% else %}
+
+                <p>Auteur non renseigné</p>
+
+            {% endif %}
+
+        </article>
+
+    {% endfor %}
+
+{% endblock %}

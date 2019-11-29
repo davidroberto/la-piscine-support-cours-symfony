@@ -28,6 +28,18 @@ class BookController extends AbstractController
         dump($books); die;
 	}
 
+    /**
+     *  @Route("/book/list", name="book_list")
+     */
+	public function listBooks(BookRepository $bookRepository)
+    {
+        $books = $bookRepository->findAll();
+
+        return $this->render('book/book_list.html.twig', [
+           'books' => $books
+        ]);
+    }
+
 
     /**
      * @Route("/book/insert", name="book_insert")
