@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+
+    {% for author in authors %}
+
+        <article class="book">
+            <h3>{{ author.firstName }} {{ author.lastName }}</h3>
+
+            <p>Livres : </p>
+            {% for book in author.book %}
+                <p>{{ book.title }}</p>
+            {% endfor %}
+        </article>
+
+    {% endfor %}
+
+{% endblock %}

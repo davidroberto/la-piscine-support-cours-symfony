@@ -83,4 +83,15 @@ class Author
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getBook()
+    {
+        return $this->book;
+    }
+
+
+
 }
