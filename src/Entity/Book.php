@@ -27,7 +27,7 @@ class Book
     private $genre;
 
     /**
-     * @ORM\Column(type="string", length=50)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Author")
      */
     private $author;
 
@@ -70,17 +70,22 @@ class Book
         return $this;
     }
 
-    public function getAuthor(): ?string
+    /**
+     * @return mixed
+     */
+    public function getAuthor()
     {
         return $this->author;
     }
 
-    public function setAuthor(string $author): self
+    /**
+     * @param mixed $author
+     */
+    public function setAuthor( $author ): void
     {
         $this->author = $author;
-
-        return $this;
     }
+
 
     public function getInStock(): ?bool
     {
@@ -94,15 +99,20 @@ class Book
         return $this;
     }
 
-    public function getNbPages(): ?int
+    /**
+     * @return mixed
+     */
+    public function getNbPages()
     {
         return $this->nbPages;
     }
 
-    public function setNbPages(?int $nbPages): self
+    /**
+     * @param mixed $nbPages
+     */
+    public function setNbPages( $nbPages ): void
     {
         $this->nbPages = $nbPages;
-
-        return $this;
     }
+
 }
