@@ -1,4 +1,46 @@
+{% extends 'base.html.twig' %}
+
 {# je crée le html de mon formulaire (balise form, input etc) en utilisant la fonction
  form() avec en parametre ma variable de formulaire  #}
-{{ form(bookFormView) }}
+{#{{ form(bookFormView) }}#}
 
+
+{% block content %}
+
+    {# j'utilise la fonction form_start pour insérer la balise form #}
+    {{ form_start(bookFormView) }}
+
+    {# j'utilise les fonctions form_errors, form_label et form_widget
+     pour afficher respectivement les erreurs, le label et l'input pour
+     mon champs title #}
+    {{ form_errors(bookFormView.title) }}
+    {{ form_label(bookFormView.title, ) }}
+
+    {# j'utilise le parametre 'attr' pour pouvoir attribuer une classe css
+     à mon input #}
+    {{ form_widget(bookFormView.title, { 'attr': {'class': 'book_form_title_input'} }) }}
+
+    {{ form_errors(bookFormView.genre) }}
+    {{ form_label(bookFormView.genre) }}
+    {{ form_widget(bookFormView.genre) }}
+
+    {{ form_errors(bookFormView.author) }}
+    {{ form_label(bookFormView.author) }}
+    {{ form_widget(bookFormView.author) }}
+
+    {{ form_errors(bookFormView.nbPages) }}
+    {{ form_label(bookFormView.nbPages) }}
+    {{ form_widget(bookFormView.nbPages) }}
+
+    {{ form_errors(bookFormView.inStock) }}
+    {{ form_label(bookFormView.inStock) }}
+    {{ form_widget(bookFormView.inStock) }}
+
+    {{ form_label(bookFormView.Envoyer) }}
+    {{ form_widget(bookFormView.Envoyer) }}
+
+    {# j'utilise la fonction form_end pour insérer la fermeture de la balise form #}
+
+    {{ form_end(bookFormView) }}
+
+{% endblock %}

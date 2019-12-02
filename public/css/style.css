@@ -12,3 +12,9 @@ body {
     background: #d4d5ff;
     border: 1px solid #000000;
 }
+
+
+.book_form_title_input {
+    width: 300px;
+    background: red;
+}
